@@ -40,8 +40,8 @@ class FFT
   end
 
   def find_one_count_of_dpf(vec, n)
-    sum = 0
-    vec.each_with_index { |count, index| sum = sum + count * kernel(n, index, vec.size) }
+    index = 0
+    vec.inject { |sum, num| index = index + 1; sum = sum + num * kernel(n, index, vec.size) }
 
     sum
   end
@@ -60,7 +60,7 @@ class FFT
   end
 
   def spectr
-    dpf(@counts).map(&:abs)
+    fft2(@counts).map(&:abs)
   end
 
   def min_arg
